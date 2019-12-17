@@ -44,29 +44,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 image.src = el.image
                 humanPlayer.appendChild(image)
 
-                let value = el.value
+                // let value = el.value
                 // el.value = document.createElement("h3")
 
 
-                // score = valueOfCard(score, value)
-                // score.document.createElement("h3")
-                // humanGamerScore.appendChild(humanScore)
-
-
+                
+                
                 
                 
             })
+            let score = valueOfCard(score, value)
+            score.document.createElement("h3")
+            humanGamerScore.appendChild(humanScore)
+            
         }catch (err) {
             console.log(err)
         }
     } 
 
-    const hitHumanPlayer = async () => {
+    const hitHumanPlayer = async (valueOfCard) => {
         let drawOneCard = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`);
         drawOneCard.data.cards.forEach(el => {
             let image = document.createElement("img")
             image.src = el.image
             humanPlayer.appendChild(image)
+            // let score = document.querySelector("humanGamerScore")
+            
         })
     }
 
