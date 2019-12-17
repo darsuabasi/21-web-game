@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let deckId;
     let humanPlayer = document.querySelector("#humanPlayer")
     let dealer = document.querySelector("#dealer")
-    let humanGamerScore = document.querySelector("humanGamerScore")
+    let humanGamerScore = document.querySelector("#humanGamerScore")
     let dealerPlayerScore = document.querySelector("#dealerPlayerScore")
+    let score = 0;
     let humanScore = 0;
     let dealerScore = 0;
 
@@ -16,25 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
     //     )
     // }
 
-   const valueOfCard = (score, value) => {
-       if(value === "JACK" || value === "QUEEN" || value === "KING") {
-        score += 10
-       } else if(value === "ACE") {
-           if(score <= 10){
-               score += 11
-           } else {
-               score += 1
-           }
-       } else {
-           score += Number(value)
-       }
-       return score;
-   } 
+    const valueOfCard = (score, value) => {
+        console.log(score, value)
+        if (value === "JACK" || value === "QUEEN" || value === "KING") {
+            score += 10
+        } else if (value === "ACE") {
+            if (score <= 10) {
+                score += 11
+            } else {
+                score += 1
+            }
+        } else {
+            score += Number(value)
+        }
+        return score;
+    }
 
 
 
     const startGame = async (score) => {
-        try{
+        try {
             let shuffledCards = await axios.get(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`)
             deckId = shuffledCards.data.deck_id
             let drawTwoCards = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
@@ -43,24 +45,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 let image = document.createElement("img")
                 image.src = el.image
                 humanPlayer.appendChild(image)
-
-                // let value = el.value
+                let value = el.value
+                let val = valueOfCard(humanScore, value)
+                humanScore = val
+                humanGamerScore.innerText = val
                 // el.value = document.createElement("h3")
 
-
-                
-                
-                
-                
             })
-            let score = valueOfCard(score, value)
-            score.document.createElement("h3")
-            humanGamerScore.appendChild(humanScore)
-            
-        }catch (err) {
+
+
+            // console.log(score)
+            // humanPlayer.appendChild(score)
+
+        } catch (err) {
             console.log(err)
         }
-    } 
+    }
 
     const hitHumanPlayer = async (valueOfCard) => {
         let drawOneCard = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`);
@@ -69,7 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
             image.src = el.image
             humanPlayer.appendChild(image)
             // let score = document.querySelector("humanGamerScore")
-            
+            let value = el.value
+                let val = valueOfCard(humanScore, value)
+                humanScore = val
+                humanGamerScore.innerText = val
+
         })
     }
 
@@ -79,28 +83,32 @@ document.addEventListener("DOMContentLoaded", () => {
             let image = document.createElement("img")
             image.src = el.image
             dealer.appendChild(image)
-            
+            let value = el.value
+                let val = valueOfCard(dealerScore, value)
+                dealerScore = val
+                dealerPlayerScore.innerText = val
+
         })
 
     }
 
     const keepScore = () => {
-        
+
     }
-    
+
     startGameButton.addEventListener("click", () => {
-                    startGame(humanScore);
-                })
-    
+        startGame(humanScore);
+    })
+
     stayButton.addEventListener("click", () => {
-                hitDealer();
-                })
+        hitDealer();
+    })
 
     hitButton.addEventListener("click", () => {
-                hitHumanPlayer();
+        hitHumanPlayer();
 
-                })
     })
+})
 
 
 console.log("hello")
