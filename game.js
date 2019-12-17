@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let humanGamerScore = document.querySelector("#humanGamerScore")
     let dealerPlayerScore = document.querySelector("#dealerPlayerScore")
     let score = 0;
+    // let value = 0; value does not need to be appeneded
     let humanScore = 0;
     let dealerScore = 0;
 
@@ -32,6 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         return score;
     }
+    const automaticBust = (score) => {
+        if (score > 21) {
+            return BUST
+        }
+    }
+
+    // const keepScore =(valueOfCard) => {
+    //     let score = valueOfCard(score, value)
+    //     return score;
+    // }
 
 
 
@@ -47,16 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 humanPlayer.appendChild(image)
                 let value = el.value
                 let val = valueOfCard(humanScore, value)
+                // let val = keepScore(humanScore, value)
                 humanScore = val
-                humanGamerScore.innerText = val
+                humanGamerScore.innerText = `Your Score: ${val}`
                 // el.value = document.createElement("h3")
 
             })
-
-
             // console.log(score)
             // humanPlayer.appendChild(score)
-
         } catch (err) {
             console.log(err)
         }
@@ -69,11 +78,18 @@ document.addEventListener("DOMContentLoaded", () => {
             image.src = el.image
             humanPlayer.appendChild(image)
             // let score = document.querySelector("humanGamerScore")
-            let value = el.value
-                let val = valueOfCard(humanScore, value)
-                humanScore = val
-                humanGamerScore.innerText = val
+            // Object.entries(val);
 
+            let value = el.value
+            let currentVal = valueOfCard(humanScore, value)
+            let newCardVal = [];
+            currentVal.push(newCardVal)
+            // valueOfCard(humanScore, value) ;
+            updatedVal = currentVal + newCardVal
+            humanScore = updatedVal
+            humanGamerScore.innerText = `Your Score: ${updatedVal}`
+
+            // store score somewhere and then update it everytime you hit
         })
     }
 
@@ -84,19 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
             image.src = el.image
             dealer.appendChild(image)
             let value = el.value
-                let val = valueOfCard(dealerScore, value)
-                dealerScore = val
-                dealerPlayerScore.innerText = val
-
+            let val = valueOfCard(dealerScore, value)
+            dealerScore = val
+            dealerPlayerScore.innerText = `Dealer's Score: ${val}`
         })
-
-    }
-
-    const keepScore = () => {
+        // automaticBust(val)
 
     }
 
     startGameButton.addEventListener("click", () => {
+        document.getElementById("startGameButton").remove()
+
         startGame(humanScore);
     })
 

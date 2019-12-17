@@ -4,8 +4,8 @@
 } */
 
 body {
-    /* background-image: url(https://i.imgur.com/fvtsqU1.gif); */
-    /* background-image: url(https://i0.wp.com/bespokelife.co/wp-content/uploads/2016/09/ezgif.com-optimize.gif); */
+    background-image: url(https://i.imgur.com/fvtsqU1.gif);
+    background-image: url(https://i0.wp.com/bespokelife.co/wp-content/uploads/2016/09/ezgif.com-optimize.gif);
     background-size: cover;
     background-attachment: fixed;
     position: relative;
@@ -21,4 +21,7 @@ button {
     justify-content: center;
 
 
+}
+#displayCards {
+    color: white;
 }
